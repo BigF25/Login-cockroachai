@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Manager</title>
+</head>
+<body>
+    <h1>User Manager</h1>
+    <table border="1">
+        <tr>
+            <th>UserID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Enable</th>
+            <th>Token</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ "True" if user[3] else "False" }}</td>
+            <td>{{ user[4] }}</td>
+            <td><a href="{{ url_for('delete_user', user_id=user[0]) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <h2>Add/Change User</h2>
+    <form action="{{ url_for('add_user') }}" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+        <label for="enable">GPT4_EN:</label>
+        <input type="checkbox" id="enable" name="enable" value="1"><br>
+        <label for="token">Token:</label>
+        <input type="text" id="token" name="token"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
